@@ -6,6 +6,7 @@ use App\http\Controllers\Auth\RegisterController;
 use App\http\Controllers\ProfileController;
 use App\http\Controllers\Auth\loginController;
 use App\http\Controllers\Auth\logoutController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +28,16 @@ Route::post('/login', [loginController::class, 'store']);
 
 Route::post('/logout', [logoutController::class, 'store'])->name('logout');
 
-Route::get('/index', function () {
+Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::post('/posts', [PostController::class, 'store']);
+
+Route::get('/home', function () {
     return view('posts.home');
 })->name('home');
 
 
-Route::get('/post', function () {
-    return view('posts.index');
-});
+
+
+// Route::get('/posts', function () {
+//     return view('posts.index');
+// });
