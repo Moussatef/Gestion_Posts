@@ -28,13 +28,16 @@
                   <a href="" class="font-bold">{{ $pst->user->name }}</a> <span class="text-gray-600 text-sm">{{ $pst->created_at->diffForHumans() }}</span>
                   <p class="mb-2">{{$pst->description}}</p>
                   @auth
-                  <div>
-                      <form action="{{route('posts',$pst)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-blue-500">Delete</button>
-                    </form>
-                  </div>
+                    @can('delete')
+                        <div>
+                            <form action="{{route('posts.destroy',$pst)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500">Delete</button>
+                            </form>
+                        </div>
+                    @endcan
+
                   @endauth
 
                   <div class="flex items-center">

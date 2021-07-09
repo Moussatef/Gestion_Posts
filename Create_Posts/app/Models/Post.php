@@ -15,6 +15,10 @@ class Post extends Model
     public function checkLike(User $user){
         return $this->likes->contains('user_id',$user->id);
     }
+    // public function checkIsMyPost(User $user){
+    //     return $user->id === $this->user_id;
+    // }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
