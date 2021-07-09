@@ -8,6 +8,7 @@ use App\http\Controllers\Auth\loginController;
 use App\http\Controllers\Auth\logoutController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\UserPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,18 +25,34 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'store']);
 
+Route::get('/users/{user}/posts', [UserPostController::class, 'index'])->name('users.posts');
+
 Route::get('/login', [loginController::class, 'index'])->name('login');
 Route::post('/login', [loginController::class, 'store']);
 
+
 Route::post('/logout', [logoutController::class, 'store'])->name('logout');
 
+
+
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/posts', [PostController::class, 'store']);
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
+
+
+
+
+
+
+
+
+
+
 
 Route::get('/home', function () {
     return view('posts.home');
