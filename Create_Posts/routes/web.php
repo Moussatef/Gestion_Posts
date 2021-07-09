@@ -7,6 +7,7 @@ use App\http\Controllers\ProfileController;
 use App\http\Controllers\Auth\loginController;
 use App\http\Controllers\Auth\logoutController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ Route::post('/logout', [logoutController::class, 'store'])->name('logout');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store']);
+
+
+Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
+
 
 Route::get('/home', function () {
     return view('posts.home');

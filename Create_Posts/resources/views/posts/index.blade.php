@@ -27,6 +27,21 @@
               <div class="mb-4">
                   <a href="" class="font-bold">{{ $pst->user->name }}</a> <span class="text-gray-600 text-sm">{{ $pst->created_at->diffForHumans() }}</span>
                   <p class="mb-2">{{$pst->description}}</p>
+
+                  <div class="flex items-center">
+                      <form action="{{route('posts.likes', $pst->id )}}" method="post" class="mr-1">
+                          @csrf
+                          <button type="submit" class="text-blue-500">Like</button>
+                      </form>
+                      <form action="" class="mr-1">
+                          @csrf
+                          <button type="submit" class="text-blue-500">Unlike</button>
+                      </form>
+                      @if ($pst->likes->count())
+                        <span>{{$pst->likes->count()}} {{ Str::plural('like',$pst->likes->count())}}</span>
+                      @endif
+
+                  </div>
               </div>
 
               @endforeach
