@@ -1,11 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex justify-center ">
-        <div class="w-8/12 bg-white p-6 rounded-lg">
-            Profile
+<div class="flex justify-center mt-5">
+    <div class="w-4/12  ">
+        <div class="p-6 bg-white mr-5">
+            <h1 class="text-2xl font-medium mb-1">{{auth()->user()->name}}</h1>
+            <p>Email : {{auth()->user()->posts->count()}} {{Str::plural('post',auth()->user()->posts->count())}}</p>
+            <p>Date inscription : {{auth()->user()->created_at->diffForHumans()}} </p>
+        </div>
+
+        <div class="p-6 bg-gradient-to-r from-gray-600 to-blue-500 mr-5 mt-4">
+            <h1 class="text-2xl text-white font-medium mb-1">N° Posted : {{auth()->user()->posts->count()}} {{Str::plural('post',auth()->user()->posts->count())}}</h1>
+        </div>
+        <div class="p-6 bg-gradient-to-r from-green-400 to-blue-500 mr-5 mt-4">
+            <h1 class="text-2xl text-white font-medium mb-1">N° Likes received : {{auth()->user()->receivedLikes->count()}} {{Str::plural('like',auth()->user()->likes->count())}}</h1>
         </div>
     </div>
+    <div class="w-6/12">
+
+        <div class="bg-white p-6 rounded-lg">
+            @if (auth()->user()->posts->count())
+            @foreach (auth()->user()->posts as $pst )
+                <x-post :pst="$pst" :sh="$sh" />
+            @endforeach
+            {{ $posts->links() }}
+        @else
+            <p>{{auth()->user()->name}} does not have any posts</p>
+        @endif
+        </div>
+    </div>
+</div>
 
 @endsection
 

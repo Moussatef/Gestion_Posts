@@ -16,6 +16,9 @@ class ProfileController extends Controller
     {
         // $user = auth()->user();
         // Mail::to('otman.moussatef@gmail.com')->send(new PostLiked());
-        return view('posts.profile');
+        $posts = Post::latest()->with(['user', 'likes'])->paginate(15);
+        return view('posts.profile',[
+            'posts' => $posts,
+            'sh'=>'true']);
     }
 }

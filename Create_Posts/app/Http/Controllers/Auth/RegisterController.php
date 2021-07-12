@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware(['guest']);
     }
     public function index()
@@ -24,10 +25,11 @@ class RegisterController extends Controller
             'email' => 'required|max:90|string|email',
             'password' => 'required|confirmed|max:255|min:6|string|',
         ]);
+
         User::create([
             'name' => $fields['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password'])
+            'email' => $fields['email'],
+            'password' => Hash::make($fields['password'])
         ]);
 
         auth()->attempt($request->only('email', 'password'));

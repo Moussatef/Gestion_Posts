@@ -10,7 +10,9 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'description'
+        'title',
+        'description',
+        'img'
     ];
     public function checkLike(User $user){
         return $this->likes->contains('user_id',$user->id);
@@ -22,8 +24,16 @@ class Post extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
     public function likes(){
         return $this->hasMany(Like::class);
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function hashtags(){
+        return $this->hasMany(Hashtag::class);
+    }
 }
