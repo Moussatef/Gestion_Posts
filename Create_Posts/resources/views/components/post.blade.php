@@ -206,16 +206,18 @@
                         </path>
                     </svg>
                 </h4>
-                    <form action="{{route('posts.comment', $pst)}}" method="post" >
-                    @csrf
-                        <div class="flex items-center mt-4">
-                            <input type="hidden" name="id_post" value="{{$pst->id}}">
-                            <input  type="text" name="comment_inp" id="comment_inp" class="@error('name') border-red-500 @enderror text-gray-700 form-input rounded-full  pr-4 pl-4 mt-1 focus:ring-indigo-300 focus:border-indigo-300 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Write comment..." />
-                            <button type="submit" class="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0 ">
-                                <svg height="512pt" class="w-4 h-4 mr-2 ml-2" viewBox="0 -16 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m512 239.601562-511.667969-239.601562 27.695313 197.558594-28.027344 42.042968 28.027344 42.039063-27.695313 197.558594zm-457.015625-28.332031 139.769531 28.332031-139.769531 28.328126-18.886719-28.328126zm386.191406 28.332031-403.40625 188.902344 18.242188-130.136718 289.929687-58.765626-289.929687-58.769531-18.242188-130.136719zm0 0"/></svg>
-                            </button>
-                        </div>
-                    </form>
+                @auth
+                <form action="{{route('posts.comment', $pst)}}" method="post" >
+                @csrf
+                    <div class="flex items-center mt-4">
+                        <input type="hidden" name="id_post" value="{{$pst->id}}">
+                        <input  type="text" name="comment_inp" id="comment_inp" class="@error('name') border-red-500 @enderror text-gray-700 form-input rounded-full  pr-4 pl-4 mt-1 focus:ring-indigo-300 focus:border-indigo-300 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Write comment..." />
+                        <button type="submit" class="text-indigo-300 inline-flex items-center md:mb-2 lg:mb-0 ">
+                            <svg height="512pt" class="w-4 h-4 mr-2 ml-2" viewBox="0 -16 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m512 239.601562-511.667969-239.601562 27.695313 197.558594-28.027344 42.042968 28.027344 42.039063-27.695313 197.558594zm-457.015625-28.332031 139.769531 28.332031-139.769531 28.328126-18.886719-28.328126zm386.191406 28.332031-403.40625 188.902344 18.242188-130.136718 289.929687-58.765626-289.929687-58.769531-18.242188-130.136719zm0 0"/></svg>
+                        </button>
+                    </div>
+                </form>
+                @endauth
 
                 <br>
                 <hr>
