@@ -60,8 +60,8 @@
                             <input type='file' name="_file" class="hidden" />
                             </label> --}}
 
-                        <div class="">
-                            <button type="submit" class="bg-blue-500 text-white px-4 mt-5 py-3 rounded font-medium w-3/6 ml-80 ">Post</button>
+                        <div class="justify-center text-center">
+                            <button type="submit" class="bg-blue-500 text-white px-4 mt-5 py-3 rounded font-medium w-3/6   ">Post</button>
                         </div>
                     </div>
                 </form>
@@ -74,9 +74,9 @@
             <span class="block text-indigo-600 xl:inline">online business</span>
           </h1>
               @foreach ($posts as $pst )
-
+          <div class="justify-center">
               <x-post :pst="$pst" :sh="$sh" />
-
+        </div>
               @endforeach
               {{ $posts->links() }}
            @else

@@ -18,7 +18,8 @@ class UserPostController extends Controller
 
         return view('posts.userPosts',[
             'user' => $user,
-            'posts' => $posts
+            'posts' => $posts,
+            'sh' => 'true'
         ]);
     }
 

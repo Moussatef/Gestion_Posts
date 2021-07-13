@@ -6,6 +6,7 @@ use App\http\Controllers\Auth\RegisterController;
 use App\http\Controllers\ProfileController;
 use App\http\Controllers\Auth\loginController;
 use App\http\Controllers\Auth\logoutController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UserPostController;
@@ -27,7 +28,7 @@ use App\Http\Controllers\UserPostController;
 Route::get('/users/{user}/posts', [UserPostController::class, 'index'])->name('users.posts');
 
 
-Route::post('/login', [loginController::class, 'store']);
+
 
 
 
@@ -42,7 +43,7 @@ Route::get('/posts/{id}/edit', [PostController::class, 'editpost'])->name('post.
 Route::put('/posts/edit', [PostController::class, 'update'])->name('post.editpost');
 
 
-Route::post('/posts/{id}/comment', [CommentController::class, 'store'])->name('posts.comment');
+Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('posts.comment');
 
 
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
@@ -53,14 +54,24 @@ Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->na
 
 Route::group(['middleware'=>['AuthCheck']], function(){
     Route::get('/login', [loginController::class, 'index'])->name('login');
+    Route::post('/login', [loginController::class, 'store']);
+
+
+
+
+
+
+
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/logout', [logoutController::class, 'store'])->name('logout');
 
 });
-
-
+Route::post('/admin/login', [loginController::class, 'admin']);
+Route::get('/admin/login', function () {
+        return view('auth.adminlogin');
+    })->name('admin.login');
 
 
 

@@ -29,8 +29,8 @@ class PostController extends Controller
     }
     public function update(Request $request){
         $post = Post::find($request->id);
-
-
+        $post->update($request->all());
+        return $this->show($post);
     }
 
     public function show(Post $post)

@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center ">
         <div class="w-8/12">
-            <div class="p-6">
+            <div class="p-6 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
                 <h1 class="text-2xl font-medium mb-1">{{$user->name}}</h1>
                 <p>Posted : {{$posts->count()}} {{Str::plural('post',$posts->count())}}</p>
                 <p>Likes received {{$user->receivedLikes->count()}} {{Str::plural('like',$user->likes->count())}}</p>
@@ -11,7 +11,7 @@
             <div class="bg-white p-6 rounded-lg">
                 @if ($posts->count())
                 @foreach ($posts as $pst )
-                    <x-post :pst="$pst" />
+                    <x-post :pst="$pst" :sh="$sh" />
                 @endforeach
                 {{ $posts->links() }}
             @else
