@@ -21,13 +21,15 @@ class PostController extends Controller
         ]);
     }
 
-    public function editpost($id){
+    public function editpost($id)
+    {
         $post = Post::find($id);
-        return view('posts.editpost',[
+        return view('posts.editpost', [
             'post' =>  $post
         ]);
     }
-    public function update(Request $request){
+    public function update(Request $request)
+    {
         $post = Post::find($request->id);
         $post->update($request->all());
         return $this->show($post);

@@ -1,8 +1,9 @@
 <?php
 
-
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\Auth\RegisterController;
+
 use App\http\Controllers\ProfileController;
 use App\http\Controllers\Auth\loginController;
 use App\http\Controllers\Auth\logoutController;
@@ -52,58 +53,48 @@ Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->na
 
 
 
-Route::group(['middleware'=>['AuthCheck']], function(){
+Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/login', [loginController::class, 'index'])->name('login');
     Route::post('/login', [loginController::class, 'store']);
     Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/logout', [logoutController::class, 'store'])->name('logout');
-
 });
 
 Route::post('/admin/login', [loginController::class, 'admin']);
 Route::get('/admin/login', function () {
-        return view('auth.adminlogin');
-    })->name('admin.login');
-
-
-
-
-
-
-
-
+    return view('auth.adminlogin');
+})->name('admin.login');
 
 Route::get('/home', function () {
     return view('posts.home');
 })->name('home');
 
 
+Route::prefix('admin')->name('admin.')->group(function () {
 
-Route::prefix('admin')->name('admin.')->group(function(){
-
-    Route::middleware(['guest:admin','PreventBackHistory'])->group(function(){
-
-        Route::post('/admin/login', [loginController::class, 'admin'])->name('login');
-
-        
-          Route::view('/login','dashboard.admin.login');
-          Route::post('/check',[AdminController::class,'check'])->name('check');
-    });
-
-    Route::middleware(['auth:admin','PreventBackHistory'])->group(function(){
+    Route::middleware(['guest:admin', 'PreventBackHistory'])->group(function () {
 
 
         Route::get('/admin/login', function () {
             return view('auth.adminlogin');
         })->name('admin.login');
 
-
-        Route::view('/home','dashboard.admin.home')->name('home');
-        Route::post('/logout',[AdminController::class,'logout'])->name('logout');
+        Route::post('/admin/login', [loginController::class, 'admin'])->name('admin.login');
+        //   Route::view('/login','dashboard.admin.login');
+        //   Route::post('/check',[AdminController::class,'check'])->name('check');
     });
 
+    Route::middleware(['auth:admin', 'PreventBackHistory'])->group(function () {
+
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::delete('/dashboard/{post}', [AdminController::class, 'delete'])->name('delete.post');
+
+
+
+        // Route::post('/logout',[AdminController::class,'logout'])->name('logout');
+    });
 });
 
 

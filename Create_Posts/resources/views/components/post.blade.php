@@ -8,7 +8,8 @@
 
 
       @endif
-    <div class="p-4 sm:w-1/2 lg:w-3/6 justify-center mx-auto   ">
+
+    <div class="p-4 sm:w-1/2 lg:w-3/6 justify-center mx-auto  ">
         <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden ">
             @if ($pst->img != 'NULL')
             <img class="h-full ml-auto mr-auto  w-full object-cover object-center  "
@@ -21,8 +22,16 @@
             <div class="p-6 hover:bg-gray-600 hover:text-white transition duration-300 ease-in">
                     <div class="mr-1 text-gray-400 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm ">
                         <h2 class="text-base font-medium text-indigo-300 mb-1  ml-auto">posted in : {{ $pst->created_at->diffForHumans() }}</h2>
-                        @auth
-
+                        @auth('admin')
+                        <span class="mx-4 mr-1 text-gray-400 inline-flex items-center leading-none text-sm mr-4 pr-3 py-1 border-r-2 border-gray-200">
+                            <form action="{{route('posts.destroy',$pst)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-blue-500"><svg class="w-4 h-4 mr-1 " id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><g><path id="XMLID_1089_" d="m428.332 135.275-11.167-33.466c-2.248-6.736-8.552-11.278-15.653-11.278h-291.024c-7.101 0-13.405 4.543-15.653 11.278l-11.167 33.466c-2.53 7.582 3.113 15.414 11.106 15.414h322.451c7.994 0 13.637-7.832 11.107-15.414z"/><path id="XMLID_835_" d="m135.615 491.767c1.28 11.519 11.016 20.233 22.606 20.233h193.718c11.59 0 21.326-8.715 22.606-20.233l34.565-311.077h-308.06z"/><path id="XMLID_831_" d="m225.89 42.998c0-7.167 5.831-12.998 12.998-12.998h44.189c7.167 0 12.998 5.831 12.998 12.998v17.533h30v-17.533c0-23.709-19.289-42.998-42.998-42.998h-44.189c-23.709 0-42.998 19.289-42.998 42.998v17.533h30z"/></g></svg></button>
+                            </form>
+                        </span>
+                        @endauth
+                        @auth('web')
                         @can('delete',$pst)
                             <span class="text-gray-400 inline-flex items-center leading-none text-sm mr-4 pr-3 py-1 border-r-2 border-gray-200 ml-2">
                                 <a href="{{route('post.edit', $pst->id)}}"><svg class="w-4 h-4 mr-1 " height="512pt" viewBox="0 0 512 511" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m405.332031 256.484375c-11.796875 0-21.332031 9.558594-21.332031 21.332031v170.667969c0 11.753906-9.558594 21.332031-21.332031 21.332031h-298.667969c-11.777344 0-21.332031-9.578125-21.332031-21.332031v-298.667969c0-11.753906 9.554687-21.332031 21.332031-21.332031h170.667969c11.796875 0 21.332031-9.558594 21.332031-21.332031 0-11.777344-9.535156-21.335938-21.332031-21.335938h-170.667969c-35.285156 0-64 28.714844-64 64v298.667969c0 35.285156 28.714844 64 64 64h298.667969c35.285156 0 64-28.714844 64-64v-170.667969c0-11.796875-9.539063-21.332031-21.335938-21.332031zm0 0"/><path d="m200.019531 237.050781c-1.492187 1.492188-2.496093 3.390625-2.921875 5.4375l-15.082031 75.4375c-.703125 3.496094.40625 7.101563 2.921875 9.640625 2.027344 2.027344 4.757812 3.113282 7.554688 3.113282.679687 0 1.386718-.0625 2.089843-.210938l75.414063-15.082031c2.089844-.429688 3.988281-1.429688 5.460937-2.925781l168.789063-168.789063-75.414063-75.410156zm0 0"/><path d="m496.382812 16.101562c-20.796874-20.800781-54.632812-20.800781-75.414062 0l-29.523438 29.523438 75.414063 75.414062 29.523437-29.527343c10.070313-10.046875 15.617188-23.445313 15.617188-37.695313s-5.546875-27.648437-15.617188-37.714844zm0 0"/></svg></a>
@@ -63,7 +72,7 @@
                             <circle cx="12" cy="12" r="3"></circle>
                         </svg> --}}
                         <div class="flex items-centee">
-                        @auth
+                        @auth('web')
                         @if (!$pst->checkLike(auth()->user()))
                             <form action="{{route('posts.likes', $pst )}}" method="post" class="mr-1 ">
                                 @csrf
@@ -183,10 +192,6 @@
                         </svg>{{$pst->comments->count()}}
                     </span>
                     </div>
-
-
-
-
                 </div>
                 @if ($pst->hashtags->count())
                 @foreach ( $pst->hashtags as $hashtag )
@@ -206,7 +211,7 @@
                         </path>
                     </svg>
                 </h4>
-                @auth
+                @auth('web')
                 <form action="{{route('posts.comment', $pst)}}" method="post" >
                 @csrf
                     <div class="flex items-center mt-4">
