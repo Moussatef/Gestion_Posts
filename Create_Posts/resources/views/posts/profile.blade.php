@@ -4,9 +4,9 @@
 <div class="flex justify-center mt-5">
     <div class="w-3/12  ">
         <div class="p-6 bg-white mr-5">
-            <h1 class="text-2xl font-medium mb-1">{{auth()->user()->name}}</h1>
-            <p>Email : {{auth()->user()->email}}</p>
-            <p>Date inscription : {{auth()->user()->created_at->diffForHumans()}} </p>
+            <h1 class="text-2xl font-medium mb-1 border-b-2">{{auth()->user()->name}}</h1>
+            <p class=" text-gray-600">Email : {{auth()->user()->email}}</p>
+            <p class=" text-gray-600">Date inscription : {{auth()->user()->created_at->diffForHumans()}} </p>
         </div>
 
         <div class="p-6 bg-gradient-to-r from-blue-600 to-gray-500 mr-5 mt-4">
