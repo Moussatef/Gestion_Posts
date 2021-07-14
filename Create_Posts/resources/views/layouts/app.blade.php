@@ -27,15 +27,13 @@
             </li>
         </ul>
         <ul class="flex items-center">
-            @auth
+
+            @auth('web')
             <li class="w-20 flex items-center" >
-                @auth('web')
                     <form action="{{ route('logout')}}" method="post" class="p-3 inline">
                         @csrf
                         <button type="submit" class="p-3">Logout</button>
                     </form>
-                @endauth
-
             </li>
             <li class="flex items-center ">
                 <a href="{{route('profile')}}" class="p-3">Welcome {{ auth()->user()->name }}</a>
@@ -44,15 +42,33 @@
                 <svg class="h-8 w-8 rounded-full" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" gradientTransform="matrix(1 0 0 -1 0 -19430)" gradientUnits="userSpaceOnUse" x1="0" x2="512" y1="-19686" y2="-19686"><stop offset="0" stop-color="#00f38d"/><stop offset="1" stop-color="#009eff"/></linearGradient><path d="m512 256c0 141.386719-114.613281 256-256 256s-256-114.613281-256-256 114.613281-256 256-256 256 114.613281 256 256zm0 0" fill="url(#a)"/><path d="m314.203125 247.9375c23.515625-17.710938 38.75-45.851562 38.75-77.488281 0-53.457031-43.492187-96.949219-96.953125-96.949219-53.457031 0-96.949219 43.492188-96.949219 96.949219 0 31.636719 15.230469 59.777343 38.746094 77.488281-62.960937 23.632812-107.894531 84.445312-107.894531 155.5625h30c0-75.046875 61.054687-136.097656 136.101562-136.097656 75.042969 0 136.097656 61.050781 136.097656 136.097656h30c-.003906-71.117188-44.933593-131.929688-107.898437-155.5625zm-125.152344-77.488281c0-36.917969 30.03125-66.949219 66.949219-66.949219s66.949219 30.03125 66.949219 66.949219-30.03125 66.953125-66.949219 66.953125-66.949219-30.035156-66.949219-66.953125zm0 0" fill="#fff"/></svg>
             </a>
             </li>
-            @endauth
-            @guest
-            <li>
-                <a href="{{route('register')}}" class="p-3">Register</a>
-            </li>
-            <li>
-                <a href="{{route('login')}}" class="p-3">login</a>
-            </li>
-            @endguest
+                @endauth
+                @auth('admin')
+                <li class="w-20 flex items-center" >
+                    <form action="{{ route('admin.logout')}}" method="post" class="p-3 inline">
+                        @csrf
+                        <button type="submit" class="p-3">Logout</button>
+                    </form>
+                </li>
+                <li class="flex items-center ">
+                    <a href="{{route('admin.dashboard')}}" class="p-3">Welcome {{ Auth::guard('admin')->user()->name }}</a>
+                    <a href="{{route('admin.dashboard')}}" class="max-w-xs  rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    <span class="sr-only">Welcome {{ Auth::guard('admin')->user()->name }}</span>
+                    <svg class="h-8 w-8 rounded-full" height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" gradientTransform="matrix(1 0 0 -1 0 -19430)" gradientUnits="userSpaceOnUse" x1="0" x2="512" y1="-19686" y2="-19686"><stop offset="0" stop-color="#00f38d"/><stop offset="1" stop-color="#009eff"/></linearGradient><path d="m512 256c0 141.386719-114.613281 256-256 256s-256-114.613281-256-256 114.613281-256 256-256 256 114.613281 256 256zm0 0" fill="url(#a)"/><path d="m314.203125 247.9375c23.515625-17.710938 38.75-45.851562 38.75-77.488281 0-53.457031-43.492187-96.949219-96.953125-96.949219-53.457031 0-96.949219 43.492188-96.949219 96.949219 0 31.636719 15.230469 59.777343 38.746094 77.488281-62.960937 23.632812-107.894531 84.445312-107.894531 155.5625h30c0-75.046875 61.054687-136.097656 136.101562-136.097656 75.042969 0 136.097656 61.050781 136.097656 136.097656h30c-.003906-71.117188-44.933593-131.929688-107.898437-155.5625zm-125.152344-77.488281c0-36.917969 30.03125-66.949219 66.949219-66.949219s66.949219 30.03125 66.949219 66.949219-30.03125 66.953125-66.949219 66.953125-66.949219-30.035156-66.949219-66.953125zm0 0" fill="#fff"/></svg>
+                </a>
+                </li>
+                @endauth
+                @if(!Auth::guard('admin')->user())
+                    @guest
+                    <li>
+                        <a href="{{route('register')}}" class="p-3">Register</a>
+                    </li>
+                    <li>
+                        <a href="{{route('login')}}" class="p-3">login</a>
+                    </li>
+                    @endguest
+                @endif
+
         </ul>
     </nav>
 @auth('web')

@@ -87,13 +87,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::middleware(['auth:admin', 'PreventBackHistory'])->group(function () {
-
+        Route::view('/dashboard', 'Admin.adminDash');
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
         Route::delete('/dashboard/{post}', [AdminController::class, 'delete'])->name('delete.post');
-
-
-
-        // Route::post('/logout',[AdminController::class,'logout'])->name('logout');
+        Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
     });
 });
 

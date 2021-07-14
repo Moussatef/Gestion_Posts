@@ -5,7 +5,7 @@
     <div class="w-3/12  ">
         <div class="p-6 bg-white mr-5">
             <h1 class="text-2xl font-medium mb-1">{{auth()->user()->name}}</h1>
-            <p>Email : {{auth()->user()->email-}}</p>
+            <p>Email : {{auth()->user()->email}}</p>
             <p>Date inscription : {{auth()->user()->created_at->diffForHumans()}} </p>
         </div>
 
